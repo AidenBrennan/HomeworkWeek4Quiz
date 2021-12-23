@@ -41,7 +41,7 @@ var currentquestion = 0;
 var selectedanswer;
 var countdown;
 var time = 20;
-var recordedscore = [];
+var recordedscore = [""];
 var initials = "";
 
 //set event listeners
