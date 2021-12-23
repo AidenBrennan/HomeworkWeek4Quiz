@@ -40,7 +40,7 @@ var highscores = [];
 var currentquestion = 0;
 var selectedanswer;
 var countdown;
-var time = 0;
+var time = 20;
 var recordedscore = [];
 var initials = "";
 var storedresults = "";
@@ -82,7 +82,6 @@ let currentquestion = 0;
 
 
 function starttimer() {
-    let time = 20;
   countdown = setInterval(function () {
     time--;
     timer.textContent = time + "s";
@@ -137,3 +136,4 @@ if (selectedanswer === questions[currentquestion].answer){
         Choice5.textContent = recordedscore[4];
       }
 }
+
