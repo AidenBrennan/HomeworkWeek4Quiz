@@ -66,7 +66,6 @@ Choice5.addEventListener("click", (event) => {
   selectedanswer = event.target.textContent;
   CheckAnswer();
 });
-
 // start quiz/timer
 function RunQuiz() {
 let currentquestion = 0;
@@ -104,7 +103,7 @@ if (selectedanswer === questions[currentquestion].answer){
 }
 
   //move to next question
-  function nextquestion() {
+function nextquestion() {
     if (currentquestion < questions.length - 1) {
       currentquestion += 1;
       Choice1.textContent = questions[currentquestion].ChoiceA;
@@ -117,7 +116,7 @@ if (selectedanswer === questions[currentquestion].answer){
       savescores();
     }
 
-    function savescores() {
+function savescores() {
         clearInterval(countdown);
         var initials = window.prompt("enter initials");
         recordedscore = JSON.parse(localStorage.getItem("recordedscore"));
@@ -125,7 +124,6 @@ if (selectedanswer === questions[currentquestion].answer){
         localStorage.setItem("recordedscore", JSON.stringify(recordedscore));
         finishquiz();
       }
-
       function finishquiz() {
         title.textContent = "well done, click on timer to play again";
         recordedscore = JSON.parse(localStorage.getItem("recordedscore"));
