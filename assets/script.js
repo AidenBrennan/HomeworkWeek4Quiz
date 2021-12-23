@@ -43,7 +43,6 @@ var countdown;
 var time = 20;
 var recordedscore = [];
 var initials = "";
-var storedresults = "";
 
 //set event listeners
 timer.addEventListener("click", RunQuiz);
@@ -121,14 +120,17 @@ if (selectedanswer === questions[currentquestion].answer){
     function savescores() {
         clearInterval(countdown);
         var initials = window.prompt("enter initials");
+        recordedscore = JSON.parse(localStorage.getItem("recordedscore"));
         recordedscore.push(time + initials);
         localStorage.setItem("recordedscore", JSON.stringify(recordedscore));
         finishquiz();
       }
-    
+
       function finishquiz() {
         title.textContent = "well done, click on timer to play again";
-        storedresults = JSON.parse(localStorage.getItem("highscores"));
+        recordedscore = JSON.parse(localStorage.getItem("recordedscore"));
+        recordedscore.sort();
+        console.log(recordedscore);
         Choice1.textContent = recordedscore[0];
         Choice2.textContent = recordedscore[1];
         Choice3.textContent = recordedscore[2];
@@ -136,4 +138,3 @@ if (selectedanswer === questions[currentquestion].answer){
         Choice5.textContent = recordedscore[4];
       }
 }
-
