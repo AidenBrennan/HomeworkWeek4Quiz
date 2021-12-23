@@ -117,11 +117,11 @@ function CheckAnswer() {
     if ( selectedanswer === questions[currentquestion].answer )
     {
         alert("correct")
-        time += 2;
+        time += 5;
         nextquestion()
     } else {
         alert("incorrect")
-        time -= 2;
+        time -= 5;
         nextquestion()
     }
 
