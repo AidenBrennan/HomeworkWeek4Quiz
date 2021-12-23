@@ -57,7 +57,7 @@ Choice3.addEventListener("click", (event) => {
     console.log(selectedanswer)
     CheckAnswer();
 });
-Choice1,Choice2,Choice3,Choice4,Choice5.addEventListener("click", (event) => {
+Choice4.addEventListener("click", (event) => {
     selectedanswer = event.target.textContent;
     CheckAnswer();
 });
