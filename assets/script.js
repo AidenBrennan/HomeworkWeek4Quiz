@@ -1,5 +1,6 @@
+
 //questions
-var questions = [
+let questions = [
   {
     question: "what is 22 squared",
     ChoiceA: "484",
@@ -28,7 +29,6 @@ var questions = [
     answer: "yes",
   },
 ];
-
 //set global variables
 var Choice1 = document.getElementById("Answer1");
 var Choice2 = document.getElementById("Answer2");
@@ -36,15 +36,17 @@ var Choice3 = document.getElementById("Answer3");
 var Choice4 = document.getElementById("Answer4");
 var Choice5 = document.getElementById("Answer5");
 var timer = document.getElementById("timer");
-var highscores = [];
+var deletehighscores = document.getElementById("clearhighscores");
+var finalscore = "";
 var currentquestion = 0;
+var recordedscores = [];
 var selectedanswer;
 var countdown;
 var time = 20;
-var recordedscore = [];
 var initials = "";
 
 //set event listeners
+deletehighscores.addEventListener("click", clearhighscores)
 timer.addEventListener("click", RunQuiz);
 Choice1.addEventListener("click", (event) => {
   selectedanswer = event.target.textContent;
@@ -66,9 +68,16 @@ Choice5.addEventListener("click", (event) => {
   selectedanswer = event.target.textContent;
   CheckAnswer();
 });
+
+function clearhighscores() {
+  localStorage.clear()
+}
 // start quiz/timer
 function RunQuiz() {
-let currentquestion = 0;
+  document.getElementById("answers").style.display = 'block';
+  document.getElementById("highscores").style.display = 'none';
+  currentquestion =0;
+  time =20;
   Choice1.textContent = questions[currentquestion].ChoiceA;
   Choice2.textContent = questions[currentquestion].ChoiceB;
   Choice3.textContent = questions[currentquestion].ChoiceC;
@@ -78,12 +87,45 @@ let currentquestion = 0;
   starttimer();
 }
 
+function savescores() {
+  clearInterval(countdown);
+  var initials = window.prompt("enter initials");
+  finalscore = {
+    initials: initials,
+    time: time
+  };
+  console.log(finalscore);
+  recordedscores.push(finalscore);
+  localStorage.setItem('recordedscores', JSON.stringify(recordedscores));
+  finishquiz();
+}
+
+function finishquiz() {
+  title.textContent = "well done, click on timer to play again";
+  recordedscores = JSON.parse(localStorage.getItem('recordedscores'));
+  console.log(recordedscores);
+  recordedscores.sort((a,b) =>{
+    return b.time - a.time;
+  });
+  console.log(recordedscores);
+  document.getElementById("answers").style.display = 'none';
+  document.getElementById("highscores").style.display = 'block';
+  document.getElementById("highscores").innerHTML = "";
+  let list = document.getElementById("highscores");
+  recordedscores.forEach((recordedscores)=>{
+    let li = document.createElement("li");
+    li.innerText = recordedscores.initials + " " + recordedscores.time;
+    list.appendChild(li);
+  })
+}
+
 
 function starttimer() {
   countdown = setInterval(function () {
     time--;
     timer.textContent = time + "s";
     if (time <= 0) {
+      clearInterval(countdown);
       savescores();
     }
   }, 1000);
@@ -115,24 +157,4 @@ function nextquestion() {
     } else {
       savescores();
     }
-
-function savescores() {
-        clearInterval(countdown);
-        var initials = window.prompt("enter initials");
-        recordedscore = JSON.parse(localStorage.getItem("recordedscore"));
-        recordedscore.push(time + initials);
-        localStorage.setItem("recordedscore", JSON.stringify(recordedscore));
-        finishquiz();
-      }
-      function finishquiz() {
-        title.textContent = "well done, click on timer to play again";
-        recordedscore = JSON.parse(localStorage.getItem("recordedscore"));
-        recordedscore.sort();
-        console.log(recordedscore);
-        Choice1.textContent = recordedscore[0];
-        Choice2.textContent = recordedscore[1];
-        Choice3.textContent = recordedscore[2];
-        Choice4.textContent = recordedscore[3];
-        Choice5.textContent = recordedscore[4];
-      }
 }
