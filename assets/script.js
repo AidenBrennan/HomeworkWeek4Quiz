@@ -38,12 +38,14 @@ var timer = document.getElementById("timer");
 var deletehighscores = document.getElementById("clearhighscores");
 var finalscore = "";
 var currentquestion = 0;
-var recordedscores = [localStorage.getItem('recordedscores')];
+var recordedscores = JSON.parse(localStorage.getItem('recordedscores'));
 recordedscores.shift();
 var selectedanswer;
 var countdown;
 var time = 20;
 var initials = "";
+
+console.log(recordedscores);
 
 //set event listeners
 deletehighscores.addEventListener("click", clearhighscores)
