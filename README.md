@@ -5,5 +5,13 @@ https://infamous22222.github.io/HomeworkWeek4Quiz/
 
 project designed for USYD bootcamp using HTML, CSS and JavaScript
 
-assets/deployed application.png
+images of deployed application 
+
+assets/highscorespicture.png
+
+highscores displayed with ability to clear
+
+assets/timer+running quiz picture
+
+active timer
 
