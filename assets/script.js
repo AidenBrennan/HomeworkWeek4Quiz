@@ -1,4 +1,3 @@
-
 //questions
 let questions = [
   {
@@ -39,7 +38,8 @@ var timer = document.getElementById("timer");
 var deletehighscores = document.getElementById("clearhighscores");
 var finalscore = "";
 var currentquestion = 0;
-var recordedscores = [];
+var recordedscores = [localStorage.getItem('recordedscores')];
+recordedscores.shift();
 var selectedanswer;
 var countdown;
 var time = 20;
@@ -70,7 +70,9 @@ Choice5.addEventListener("click", (event) => {
 });
 
 function clearhighscores() {
-  localStorage.clear()
+  document.getElementById("highscores").innerHTML = "";
+  localStorage.clear();
+  recordedscores = [];
 }
 // start quiz/timer
 function RunQuiz() {
@@ -95,6 +97,7 @@ function savescores() {
     time: time
   };
   console.log(finalscore);
+  console.log(recordedscores)
   recordedscores.push(finalscore);
   localStorage.setItem('recordedscores', JSON.stringify(recordedscores));
   finishquiz();
