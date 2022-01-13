@@ -36,18 +36,20 @@ var Choice4 = document.getElementById("Answer4");
 var Choice5 = document.getElementById("Answer5");
 var timer = document.getElementById("timer");
 var deletehighscores = document.getElementById("clearhighscores");
+var showhighscores = document.getElementById("showhighscores");
 var finalscore = "";
 var currentquestion = 0;
-var recordedscores = JSON.parse(localStorage.getItem('recordedscores'));
-recordedscores.shift();
+if (localStorage.hasOwnProperty('recordedscores')) {
+var recordedscores = JSON.parse(localStorage.getItem('recordedscores'))}
+else { var recordedscores = []};
+console.log(recordedscores);
 var selectedanswer;
 var countdown;
 var time = 20;
 var initials = "";
 
-console.log(recordedscores);
-
 //set event listeners
+showhighscores.addEventListener("click", finishquiz )
 deletehighscores.addEventListener("click", clearhighscores)
 timer.addEventListener("click", RunQuiz);
 Choice1.addEventListener("click", (event) => {
@@ -99,19 +101,22 @@ function savescores() {
     time: time
   };
   console.log(finalscore);
-  console.log(recordedscores)
+  console.log(recordedscores);
   recordedscores.push(finalscore);
   localStorage.setItem('recordedscores', JSON.stringify(recordedscores));
   finishquiz();
 }
 
 function finishquiz() {
+  if (localStorage.hasOwnProperty('recordedscores')) {
   title.textContent = "well done, click on timer to play again";
   recordedscores = JSON.parse(localStorage.getItem('recordedscores'));
   console.log(recordedscores);
   recordedscores.sort((a,b) =>{
-    return b.time - a.time;
-  });
+    return b.time - a.time; 
+  })
+};
+  title.textContent = "well done, click on start to play";
   console.log(recordedscores);
   document.getElementById("answers").style.display = 'none';
   document.getElementById("highscores").style.display = 'block';
